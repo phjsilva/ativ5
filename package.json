@@ -6,6 +6,7 @@
   "scripts": {
     "um": "tsc && node dist/um.js",
     "dois": "tsc && node dist/dois.js",
+    "tres": "tsc && node dist/tres.js",
     "quatro": "tsc && node dist/quatro.js",
     "cinco": "tsc && node dist/cinco.js",
     "seis": "tsc && node dist/seis.js",

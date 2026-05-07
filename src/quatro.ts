@@ -1,14 +1,45 @@
-function aleatorio(quantidade:number, min:number, max:number){
-    const itens:number[] = [];
-    const intervalo = max - min;
-    for(let i = 0; i <= quantidade; i++){
-        itens[i] = Math.floor(Math.random() * intervalo) + min;
-    }
-    return itens;
+function adicionarPessoa(fila: string[], nome: string) {
+    fila.push(nome)
 }
 
-// gerar 10 números aleatórios no intervalo [40,69]
-const nros = aleatorio(10,40,70);
-console.log(nros);
+function atenderPessoa(fila: string[]) {
+    if (fila.length === 0) {
+        console.log("Não há pessoas na fila")
+        return null
+    }
 
-export {}
+    const pessoaAtendida = fila.shift()
+
+    return pessoaAtendida
+}
+
+function listarFila(fila: string[]) {
+    if(fila.length === 0) {
+        console.log("Fila vazia")
+    } else{
+        for(let i = 0; i < fila.length; i++){
+            console.log(i + 1, fila[i])
+        }
+    }
+}
+function contarPessoasNaFila(fila: string[]) {
+    return fila.length
+}
+
+const filaAtendimento: string[] = [];
+adicionarPessoa(filaAtendimento, "Ana");
+adicionarPessoa(filaAtendimento, "Bruno");
+adicionarPessoa(filaAtendimento, "Carla");
+adicionarPessoa(filaAtendimento, "Diego");
+listarFila(filaAtendimento);
+console.log("-----------------------------");
+const primeiraPessoaAtendida = atenderPessoa(filaAtendimento);
+if (primeiraPessoaAtendida !== null) {
+console.log(`Pessoa atendida: ${primeiraPessoaAtendida}`);
+} else {
+console.log("Não há pessoas na fila para atendimento.");
+}
+console.log("-----------------------------");
+listarFila(filaAtendimento);
+console.log("-----------------------------");
+console.log(`Pessoas aguardando: ${contarPessoasNaFila(filaAtendimento)}`);

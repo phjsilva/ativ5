@@ -1,14 +1,51 @@
-function converter(entrada:string){
-    const textos:string[] = entrada.split(",");
-    const nros:number[] = [];
-    for(let i = 0; i < textos.length; i++){
-        nros[i] = parseInt(textos[i]);
-    }
-    return nros;
+
+function normalizarTexto(texto:string){
+    const textoMinuscula = texto.toLowerCase();
+    const textoSemAcentos = textoMinuscula.normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    const textoSemEspacos = textoSemAcentos.replace(/\s/g, "");
+    const textoSemPontuacao = textoSemEspacos.replace(/[^0-9a-z]/g, "");
+    return textoSemPontuacao;
 }
 
-const teste = "30,60,50,10,20,40";
-const resposta = converter(teste);
-console.log(resposta);
+function ehPalindromo(frase:string){
+    const textoNormalizado = normalizarTexto(frase)
+    let inicio = 0
+    let fim = textoNormalizado.length - 1
 
-export {}
+    while (inicio < fim) {
+        if (textoNormalizado[inicio] !== textoNormalizado[fim]){
+            return false
+        }
+
+        inicio+=1
+        fim -= 1
+    }
+
+    return true
+}
+
+// Casos de teste
+const frases: string[] = [
+    "A grama é amarga",
+    "Roma me tem amor",
+    "Socorram-me subi no ônibus em Marrocos",
+    "TypeScript é legal",
+    "Ana"
+];
+
+
+for (const frase of frases) {
+    const resultado = ehPalindromo(frase);
+
+    console.log(`Frase: "${frase}"`);
+
+    if (resultado) {
+        console.log("Resultado: É um palíndromo");
+    } else {
+        console.log("Resultado: Não é um palíndromo");
+    }
+
+    console.log("-----------------------------");
+}
+
+export{}

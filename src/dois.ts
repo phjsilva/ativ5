@@ -1,17 +1,54 @@
-function formatar(entrada:string){
-    const textos:string[] = entrada.split(";");
-    const obj = {
-        logradouro: textos[0].trim(),
-        bairro: textos[1].trim(),
-        municipio: textos[2].trim(),
-        uf: textos[3].trim(),
-        cep: textos[4].trim()
-    };
-    return obj;
+type resultadoSenha = {
+    pontuacao: number,
+    classificacao: string
 }
 
-const endereco = "R. Faria Lima, 155; Jardim Santa Maria; Jacareí; SP; 12328-070";
-const resposta = formatar(endereco);
-console.log(resposta);
 
-export {};
+function analisarSenha(senha:string){
+    let pontuacao = 0
+
+    if(senha.length >= 8 ) {
+        pontuacao++
+    }if(/[a-z]/.test(senha)) {
+        pontuacao++
+    }if(/[A-Z]/.test(senha)) {
+        pontuacao++
+    }if(/[0-9]/.test(senha)) {
+        pontuacao++
+    } if (/[^\w\s]/.test(senha)) {
+        pontuacao++;
+    }
+
+    let classificacao = ""
+
+    if (pontuacao <= 2){
+       classificacao = "Fraca"
+    }else if (pontuacao <= 3){
+        classificacao = "média"
+    }else if (pontuacao <= 4){
+        classificacao = "Forte"
+    }else {
+        classificacao = "Muito forte"
+    }
+
+    return  {
+        pontuacao,
+        classificacao
+    }
+}
+
+const senhas: string[] = [
+    "abc",
+    "abcdefghi",
+    "Abcdefghi",
+    "Abc12345",
+    "Abc123@#"
+    ];
+    for (const senha of senhas) {
+    const resultado = analisarSenha(senha);
+    console.log(`Senha: ${senha}`);
+    console.log(`Pontuação: ${resultado.pontuacao}`);
+    console.log(`Classificação: ${resultado.classificacao}`);
+    console.log("-----------------------------");
+    }
+export{}
