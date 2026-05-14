@@ -21,37 +21,22 @@ function decifrarMensagem(mensagem: string, deslocamento: number): string {
     return cifrarMensagem(mensagem, 26 - deslocamento);
 }
 
-const jogadores: Jogador[] = [
-    {
-    nome: "Luna",
-    pontuacao: 8500,
-    fase: 12
-    },
-    {
-    nome: "Caio",
-    pontuacao: 7300,
-    fase: 10
-    },
-    {nome: "Maya",
-    pontuacao: 9200,
-    fase: 14
-    },
-    {
-    nome: "Ravi",
-    pontuacao: 6800,
-    fase: 9
-    },
-    {
-    nome: "Nina",
-    pontuacao: 9200,
-    fase: 13
-    }
-    ];
-    exibirRanking(jogadores);
-    const campeao = buscarCampeao(jogadores);
-    if (campeao !== null) {
-    console.log(`Campeão: ${campeao.nome}`);
-    console.log(`Pontuação: ${campeao.pontuacao}`);
-    } else {
-    console.log("Não há jogadores cadastrados.");
-    }
+const mensagemOriginal = "ataque ao castelo";
+const deslocamento = 3;
+
+const mensagemCifrada = cifrarMensagem(mensagemOriginal, deslocamento);
+const mensagemDecifrada = decifrarMensagem(mensagemCifrada, deslocamento);
+
+console.log(`Mensagem original: ${mensagemOriginal}`);
+console.log(`Mensagem cifrada: ${mensagemCifrada}`);
+console.log(`Mensagem decifrada: ${mensagemDecifrada}`);
+
+console.log("-----------------------------");
+
+const outraMensagem = "typescript 123!";
+const outraCifrada = cifrarMensagem(outraMensagem, deslocamento);
+const outraDecifrada = decifrarMensagem(outraCifrada, deslocamento);
+
+console.log(`Mensagem original: ${outraMensagem}`);
+console.log(`Mensagem cifrada: ${outraCifrada}`);
+console.log(`Mensagem decifrada: ${outraDecifrada}`);

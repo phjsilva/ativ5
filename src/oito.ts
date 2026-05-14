@@ -1,15 +1,7 @@
-function multiplo(elementos:number[], numero1:number, numero2:number){
-    const itens:number[] = [];
-    for(let i = 0; i < elementos.length; i++){
-        if( elementos[i]%numero1 === 0 || elementos[i]%numero2 === 0 ){
-            itens.push(elementos[i]);
-        }
-    }
-    return itens;
+function separarPalavras(texto:string){
+    texto.replace(/\./g, "")
+    const list = texto.split(" ")
+    return list
 }
-
-const nros = [21,12,18,15,28,19,23,14];
-const resultado = multiplo(nros , 3, 4);
-console.log(resultado);
 
 export {}

@@ -1,13 +1,33 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function aleatorio(quantidade, min, max) {
-    const itens = [];
-    const intervalo = max - min;
-    for (let i = 0; i <= quantidade; i++) {
-        itens[i] = Math.floor(Math.random() * intervalo) + min;
+function cifrarMensagem(mensagem, deslocamento) {
+    const alfabeto = "abcdefghijklmnopqrstuvwxyz";
+    let resultado = "";
+    for (const caractere of mensagem.toLowerCase()) {
+        const posicao = alfabeto.indexOf(caractere);
+        if (posicao !== -1) {
+            const novaPosicao = (posicao + deslocamento) % 26;
+            resultado += alfabeto[novaPosicao];
+        }
+        else {
+            resultado += caractere;
+        }
     }
-    return itens.sort();
+    return resultado;
 }
-// gerar 10 números aleatórios no intervalo [40,69]
-const nros = aleatorio(10, 40, 70);
-console.log(nros);
+function decifrarMensagem(mensagem, deslocamento) {
+    return cifrarMensagem(mensagem, 26 - deslocamento);
+}
+const mensagemOriginal = "ataque ao castelo";
+const deslocamento = 3;
+const mensagemCifrada = cifrarMensagem(mensagemOriginal, deslocamento);
+const mensagemDecifrada = decifrarMensagem(mensagemCifrada, deslocamento);
+console.log(`Mensagem original: ${mensagemOriginal}`);
+console.log(`Mensagem cifrada: ${mensagemCifrada}`);
+console.log(`Mensagem decifrada: ${mensagemDecifrada}`);
+console.log("-----------------------------");
+const outraMensagem = "typescript 123!";
+const outraCifrada = cifrarMensagem(outraMensagem, deslocamento);
+const outraDecifrada = decifrarMensagem(outraCifrada, deslocamento);
+console.log(`Mensagem original: ${outraMensagem}`);
+console.log(`Mensagem cifrada: ${outraCifrada}`);
+console.log(`Mensagem decifrada: ${outraDecifrada}`);
