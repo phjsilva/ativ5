@@ -1,14 +1,35 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function contamultiplo(elementos, numero1, numero2) {
-    const itens = [];
-    for (let i = 0; i < elementos.length; i++) {
-        if (elementos[i] % numero1 === 0 || elementos[i] % numero2 === 0) {
-            itens.push(elementos[i]);
+function compactarTexto(texto) {
+    if (texto.length === 0) {
+        return "";
+    }
+    let resultado = "";
+    let caractereAtual = texto[0];
+    let contador = 1;
+    for (let i = 1; i < texto.length; i++) {
+        if (texto[i] === caractereAtual) {
+            contador += 1;
+        }
+        else {
+            resultado += caractereAtual + contador;
+            caractereAtual = texto[i];
+            contador = 1;
         }
     }
-    return { quantidade: itens.length };
+    resultado += caractereAtual + contador;
+    return resultado;
 }
-const nros = [21, 12, 18, 15, 28, 19, 23, 14];
-const resultado = contamultiplo(nros, 3, 4);
-console.log(resultado);
+const textosParaCompactar = [
+    "aaabbcdddd",
+    "aaaaa",
+    "abc",
+    "",
+    "xxxyyyzzzz",
+    "AABBCCCC"
+];
+for (const t of textosParaCompactar) {
+    const compactado = compactarTexto(t);
+    console.log(`Texto original: "${t}"`);
+    console.log(`Texto compactado: "${compactado}"`);
+    console.log("-----------------------------");
+}

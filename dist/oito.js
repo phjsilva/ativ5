@@ -1,14 +1,70 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function multiplo(elementos, numero1, numero2) {
-    const itens = [];
-    for (let i = 0; i < elementos.length; i++) {
-        if (elementos[i] % numero1 === 0 || elementos[i] % numero2 === 0) {
-            itens.push(elementos[i]);
+function separarPalavras(texto) {
+    const textoSemPontuacao = texto.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?!]/g, "");
+    return textoSemPontuacao.split(/\s+/).filter(p => p.length > 0);
+}
+function contarVogais(texto) {
+    const vogais = "aeiouáéíóúâêîôûãõàèìòùäëïöü";
+    let contador = 0;
+    for (const caractere of texto.toLowerCase()) {
+        if (vogais.includes(caractere)) {
+            contador += 1;
         }
     }
-    return itens;
+    return contador;
 }
-const nros = [21, 12, 18, 15, 28, 19, 23, 14];
-const resultado = multiplo(nros, 3, 4);
-console.log(resultado);
+function encontrarMaiorPalavra(palavras) {
+    if (palavras.length === 0)
+        return "";
+    let maior = palavras[0];
+    for (const palavra of palavras) {
+        if (palavra.length > maior.length) {
+            maior = palavra;
+        }
+    }
+    return maior;
+}
+function encontrarMenorPalavra(palavras) {
+    if (palavras.length === 0)
+        return "";
+    let menor = palavras[0];
+    for (const palavra of palavras) {
+        if (palavra.length < menor.length) {
+            menor = palavra;
+        }
+    }
+    return menor;
+}
+function gerarEstatisticas(texto) {
+    const palavras = separarPalavras(texto);
+    const caracteresLimpos = texto.replace(/\s+/g, "");
+    const totalVogais = contarVogais(texto);
+    const apenasLetras = texto.toLowerCase().replace(/[^a-záéíóúâêîôûãõç]/g, "");
+    const totalConsoantes = apenasLetras.length - contarVogais(apenasLetras);
+    return {
+        quantidadeCaracteres: texto.length,
+        quantidadePalavras: palavras.length,
+        maiorPalavra: encontrarMaiorPalavra(palavras),
+        menorPalavra: encontrarMenorPalavra(palavras),
+        quantidadeVogais: totalVogais,
+        quantidadeConsoantes: totalConsoantes > 0 ? totalConsoantes : 0
+    };
+}
+const textos = [
+    "TypeScript é uma linguagem poderosa!",
+    "A lógica de programação desenvolve o raciocínio.",
+    "",
+    "Olá, mundo!"
+];
+for (const texto of textos) {
+    const estatisticas = gerarEstatisticas(texto);
+    console.log(`Texto: "${texto}"`);
+    console.log(`Quantidade de caracteres: ${estatisticas.quantidadeCaracteres}`);
+    console.log(`Quantidade de palavras: ${estatisticas.quantidadePalavras}`);
+    console.log(`Maior palavra: ${estatisticas.maiorPalavra}`);
+    console.log(`Menor palavra: ${estatisticas.menorPalavra}`);
+    console.log(`Quantidade de vogais: ${estatisticas.quantidadeVogais}`);
+    console.log(`Quantidade de consoantes: ${estatisticas.quantidadeConsoantes}`);
+    console.log("-----------------------------");
+}
